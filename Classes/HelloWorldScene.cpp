@@ -115,7 +115,34 @@ bool HelloWorld::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
     }
+
+	m_pProgram = new GLProgram;
+	m_pProgram->initWithFilenames("shaders/shader_0tex.vsh", "shaders/shader_0tex.fsh");
+
+	m_pProgram->bindAttribLocation("a_position", GLProgram::VERTEX_ATTRIB_POSITION);
+	m_pProgram->link();
+	m_pProgram->updateUniforms();
+
     return true;
+}
+
+void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
+{
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION);
+
+	m_pProgram->use();
+
+	Vec3 pos[3];
+	const float x = 0.7f;
+	const float y = 0.7f;
+
+	pos[0] = Vec3(-x, -y, 0);
+	pos[1] = Vec3(-x,  y, 0);
+	pos[2] = Vec3( x, -y, 0);
+
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
+
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 
