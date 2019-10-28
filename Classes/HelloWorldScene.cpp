@@ -125,8 +125,6 @@ bool HelloWorld::init()
 	m_pProgram->link();
 	m_pProgram->updateUniforms();
 
-	counter = 0;
-
     return true;
 }
 
@@ -152,15 +150,10 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	//color[2] = Vec3(0, 1, 0); // óŒ
 	//color[3] = Vec3(0, 0, 1); // ê¬
 
-	counter++;
-	float r = 1.0f - counter / 60.0f;
-	float g = 0.0f + counter / 60.0f;
-	float b = 0.0f;
-
-	color[0] = Vec3(r, g, b);
-	color[1] = Vec3(r, g, b);
-	color[2] = Vec3(r, g, b);
-	color[3] = Vec3(r, g, b);
+	color[0] = Vec3(1, 0, 0);
+	color[1] = Vec3(1, 0, 0);
+	color[2] = Vec3(1, 0, 0);
+	color[3] = Vec3(1, 0, 0);
 
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 3, GL_FLOAT, GL_FALSE, 0, color);
