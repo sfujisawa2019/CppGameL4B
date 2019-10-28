@@ -132,17 +132,21 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 
 	m_pProgram->use();
 
-	Vec3 pos[3];
-	const float x = 0.7f;
-	const float y = 0.7f;
-
+	Vec3 pos[6];
+	const float x = 0.2f;
+	const float y = 0.3f;
+	// ŽOŠpŒ`‚P‚Â–Ú
 	pos[0] = Vec3(-x, -y, 0);
 	pos[1] = Vec3(-x,  y, 0);
 	pos[2] = Vec3( x, -y, 0);
+	// ŽOŠpŒ`‚Q‚Â–Ú
+	pos[3] = Vec3( x, -y, 0);
+	pos[4] = Vec3(-x,  y, 0);
+	pos[5] = Vec3( x,  y, 0);
 
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 
