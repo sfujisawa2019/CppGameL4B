@@ -1,9 +1,9 @@
 varying vec4 v_color; // （入力）色
+varying vec2 v_texCoord; //(入力)テクスチャ座標
+uniform sampler2D sampler;
 
 void main(){
 
-	gl_FragColor = v_color;
-
-	//                   R    G    B    A
-	//gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+	vec4 texcolor = texture2D(sampler, v_texCoord);
+	gl_FragColor = texcolor * v_color;
 }
