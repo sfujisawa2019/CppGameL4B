@@ -193,16 +193,22 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	Mat4 matProjection;
 	Mat4 matView;
 	Mat4 matWVP;
-	Mat4 matTrans, matScale, matRot, matWorld;
+	Mat4 matTrans, matScale, matRot;
+	Mat4 matRotX, matRotY, matRotZ;
+	Mat4 matWorld = Mat4::IDENTITY;
 
 	matProjection = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
 	matView = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 
-	Mat4::createTranslation(Vec3(250, 50, 0), &matTrans);
+	Mat4::createTranslation(Vec3(1280/2.0f, 720/2.0f, 0.0f), &matTrans);
 
-	Mat4::createRotationY(yaw, &matRot);
+	//CC_DEGREES_TO_RADIANS(30.0f)
+	Mat4::createRotationZ(0, &matRotZ); // ロール
+	Mat4::createRotationX(0, &matRotX); // ピッチ（仰角）
+	Mat4::createRotationY(yaw, &matRotY); // ヨー（方位角）
+	matRot = matRotY * matRotX * matRotZ;
 
-	Mat4::createScale(Vec3(1, 1, 1), &matScale);
+	Mat4::createScale(Vec3(2.0f, 2.0f, 1), &matScale);
 
 	matWorld = matTrans * matRot * matScale;
 
