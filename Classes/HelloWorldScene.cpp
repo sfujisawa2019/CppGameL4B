@@ -153,14 +153,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	Vec2 uv[6];
 	const float x = 50.0f;
 	const float y = 50.0f;
-	// OŠpŒ`‚P‚Â–Ú
-	pos[0] = Vec3(-x, -y, 0);
-	pos[1] = Vec3(-x,  y, 0);
-	pos[2] = Vec3( x, -y, 0);
-	// OŠpŒ`‚Q‚Â–Ú
-	pos[3] = Vec3(-x,  y, 0);
-	pos[4] = Vec3( x, -y, 0);
-	pos[5] = Vec3( x,  y, 0);
+	const float z = 50.0f;
 	
 	//color[0] = Vec3(0, 0, 0); // •
 	//color[1] = Vec3(1, 0, 0); // Ô
@@ -189,7 +182,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	//GL::bindTexture2D(m_pTexture->getName());
 
 	static float yaw = 0.0f;
-	yaw += 0.01f;
+	yaw += CC_DEGREES_TO_RADIANS(3.0f);
 	Mat4 matProjection;
 	Mat4 matView;
 	Mat4 matWVP;
@@ -208,7 +201,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	Mat4::createRotationY(yaw, &matRotY); // ƒˆ[i•ûˆÊŠpj
 	matRot = matRotY * matRotX * matRotZ;
 
-	Mat4::createScale(Vec3(2.0f, 2.0f, 1), &matScale);
+	Mat4::createScale(Vec3(2.0f, 2.0f, 2.0f), &matScale);
 
 	matWorld = matTrans * matRot * matScale;
 
@@ -216,7 +209,41 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 
 	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, matWVP.m);
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	{ // •½–Ê‚P–‡‚ß‚Ì•`‰æ
+		// OŠpŒ`‚P‚Â–Ú
+		pos[0] = Vec3(-x, -y, z);
+		pos[1] = Vec3(-x, y,  z);
+		pos[2] = Vec3(x, -y,  z);
+		// OŠpŒ`‚Q‚Â–Ú
+		pos[3] = Vec3(-x, y, z);
+		pos[4] = Vec3(x, -y, z);
+		pos[5] = Vec3(x, y,  z);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
+
+	{ // •½–Ê‚Q–‡‚ß‚Ì•`‰æ
+		// OŠpŒ`‚P‚Â–Ú
+		pos[0] = Vec3(-x, -y, -z);
+		pos[1] = Vec3(-x, y,  -z);
+		pos[2] = Vec3(x, -y,  -z);
+		// OŠpŒ`‚Q‚Â–Ú
+		pos[3] = Vec3(-x, y, -z);
+		pos[4] = Vec3(x, -y, -z);
+		pos[5] = Vec3(x, y,  -z);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
+
+	{ // •½–Ê‚R–‡‚ß‚Ì•`‰æ
+		//// OŠpŒ`‚P‚Â–Ú
+		//pos[0] = Vec3(-x, -y, 0);
+		//pos[1] = Vec3(-x, y, 0);
+		//pos[2] = Vec3(x, -y, 0);
+		//// OŠpŒ`‚Q‚Â–Ú
+		//pos[3] = Vec3(-x, y, 0);
+		//pos[4] = Vec3(x, -y, 0);
+		//pos[5] = Vec3(x, y, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
 }
 
 
