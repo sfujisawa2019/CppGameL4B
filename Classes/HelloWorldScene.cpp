@@ -234,15 +234,27 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	}
 
 	{ // •½–Ê‚R–‡‚ß‚Ì•`‰æ
-		//// ŽOŠpŒ`‚P‚Â–Ú
-		//pos[0] = Vec3(-x, -y, 0);
-		//pos[1] = Vec3(-x, y, 0);
-		//pos[2] = Vec3(x, -y, 0);
-		//// ŽOŠpŒ`‚Q‚Â–Ú
-		//pos[3] = Vec3(-x, y, 0);
-		//pos[4] = Vec3(x, -y, 0);
-		//pos[5] = Vec3(x, y, 0);
-		//glDrawArrays(GL_TRIANGLES, 0, 6);
+		// ŽOŠpŒ`‚P‚Â–Ú
+		pos[0] = Vec3(-x, -y, -z);
+		pos[1] = Vec3(-x,  y, -z);
+		pos[2] = Vec3(-x, -y,  z);
+		// ŽOŠpŒ`‚Q‚Â–Ú
+		pos[3] = Vec3(-x,  y, -z);
+		pos[4] = Vec3(-x, -y,  z);
+		pos[5] = Vec3(-x,  y,  z);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
+
+	{ // •½–Ê‚S–‡‚ß‚Ì•`‰æ
+		// ŽOŠpŒ`‚P‚Â–Ú
+		pos[0] = Vec3(x, -y, -z);
+		pos[1] = Vec3(x, y, -z);
+		pos[2] = Vec3(x, -y, z);
+		// ŽOŠpŒ`‚Q‚Â–Ú
+		pos[3] = Vec3(x, y, -z);
+		pos[4] = Vec3(x, -y, z);
+		pos[5] = Vec3(x, y, z);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 }
 
