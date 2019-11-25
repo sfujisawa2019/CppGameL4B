@@ -1,6 +1,6 @@
 #include "HelloShaderScene.h"
 
-#include "HelloWorldScene.h"
+#include "ShaderNode.h"
 
 USING_NS_CC;
 
@@ -77,14 +77,14 @@ bool HelloShader::init()
 	this->addChild(sprite, 0);
 
 	// HelloWorldのレイヤーを作成。描画優先は1
-	Node* node = HelloWorld::create();
+	Node* node = ShaderNode::create();
 	this->addChild(node, 1);
 
 	// LayerColorの使用例
 	LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 600);
 	this->addChild(layerColor, 2);
 
-	Sprite* spriteA = Sprite::create("HelloWorld.png");
+	Sprite* spriteA = Sprite::create("ShaderNode.png");
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
