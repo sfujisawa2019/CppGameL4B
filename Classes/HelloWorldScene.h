@@ -52,6 +52,11 @@ public:
 
 	// LayerColorÇÃç\ë¢ÇÉpÉNÇÈ
 	cocos2d::CustomCommand _customCommand;
+
+	cocos2d::Vec3 m_pos[4];
+	cocos2d::Vec4 m_color[4];
+	cocos2d::Vec2 m_uv[4];
+	cocos2d::Mat4 m_matWVP;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

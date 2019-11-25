@@ -146,56 +146,33 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	_customCommand.init(_globalZOrder, transform, flags);
 	_customCommand.func = CC_CALLBACK_0(HelloWorld::onDraw, this, transform, flags);
 	renderer->addCommand(&_customCommand);
-}
 
-void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
-{
 	counter++;
 
-	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR|GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
-	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
-
-
-	m_pProgram->use();
-
-	Vec3 pos[6];
-	Vec4 color[6];
-	Vec2 uv[6];
 	const float x = 50.0f;
 	const float y = 50.0f;
 	const float z = 50.0f;
 
-	//color[0] = Vec3(0, 0, 0); // •
-	//color[1] = Vec3(1, 0, 0); // Ô
-	//color[2] = Vec3(0, 1, 0); // —Î
-	//color[3] = Vec3(0, 0, 1); // Â
+	m_pos[0] = Vec3(-x, -y, 0);
+	m_pos[1] = Vec3(-x, y, 0);
+	m_pos[2] = Vec3(x, -y, 0);
+	m_pos[3] = Vec3(x, y, 0);
 
-	color[0] = Vec4(1, 0, 0, 1);
-	color[1] = Vec4(1, 0, 0, 1);
-	color[2] = Vec4(1, 0, 0, 1);
-	color[3] = Vec4(1, 0, 0, 1);
-	color[4] = Vec4(1, 0, 0, 1);
-	color[5] = Vec4(1, 0, 0, 1);
+	m_color[0] = Vec4(1, 0, 0, 1);
+	m_color[1] = Vec4(1, 0, 0, 1);
+	m_color[2] = Vec4(1, 0, 0, 1);
+	m_color[3] = Vec4(1, 0, 0, 1);
 
-	uv[0] = Vec2(0, 1);
-	uv[1] = Vec2(0, 0);
-	uv[2] = Vec2(1, 1);
-	uv[3] = Vec2(0, 0);
-	uv[4] = Vec2(1, 1);
-	uv[5] = Vec2(1, 0);
-
-	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
-	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, color);
-	//glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, uv);
-
-	//glUniform1i(uniform_sampler, 0);
-	//GL::bindTexture2D(m_pTexture->getName());
+	m_uv[0] = Vec2(0, 1);
+	m_uv[1] = Vec2(0, 0);
+	m_uv[2] = Vec2(1, 1);
+	m_uv[3] = Vec2(1, 0);
 
 	static float yaw = 0.0f;
 	yaw += CC_DEGREES_TO_RADIANS(3.0f);
 	Mat4 matProjection;
 	Mat4 matView;
-	Mat4 matWVP;
+	
 	Mat4 matTrans, matScale, matRot;
 	Mat4 matRotX, matRotY, matRotZ;
 	Mat4 matWorld = Mat4::IDENTITY;
@@ -215,57 +192,28 @@ void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
 
 	matWorld = matTrans * matRot * matScale;
 
-	matWVP = matProjection * matView * matWorld;
+	m_matWVP = matProjection * matView * matWorld;
+}
 
-	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, matWVP.m);
+void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
+{
+	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR|GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 
-	{ // •½–Ê‚P–‡‚ß‚Ì•`‰æ
-		// ŽOŠpŒ`‚P‚Â–Ú
-		pos[0] = Vec3(-x, -y, z);
-		pos[1] = Vec3(-x, y, z);
-		pos[2] = Vec3(x, -y, z);
-		// ŽOŠpŒ`‚Q‚Â–Ú
-		pos[3] = Vec3(-x, y, z);
-		pos[4] = Vec3(x, -y, z);
-		pos[5] = Vec3(x, y, z);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
+	m_pProgram->use();
 
-	{ // •½–Ê‚Q–‡‚ß‚Ì•`‰æ
-		// ŽOŠpŒ`‚P‚Â–Ú
-		pos[0] = Vec3(-x, -y, -z);
-		pos[1] = Vec3(-x, y, -z);
-		pos[2] = Vec3(x, -y, -z);
-		// ŽOŠpŒ`‚Q‚Â–Ú
-		pos[3] = Vec3(-x, y, -z);
-		pos[4] = Vec3(x, -y, -z);
-		pos[5] = Vec3(x, y, -z);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, m_pos);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, m_color);
+	//glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, m_uv);
 
-	{ // •½–Ê‚R–‡‚ß‚Ì•`‰æ
-		// ŽOŠpŒ`‚P‚Â–Ú
-		pos[0] = Vec3(-x, -y, -z);
-		pos[1] = Vec3(-x, y, -z);
-		pos[2] = Vec3(-x, -y, z);
-		// ŽOŠpŒ`‚Q‚Â–Ú
-		pos[3] = Vec3(-x, y, -z);
-		pos[4] = Vec3(-x, -y, z);
-		pos[5] = Vec3(-x, y, z);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
+	//glUniform1i(uniform_sampler, 0);
+	//GL::bindTexture2D(m_pTexture->getName());
 
-	{ // •½–Ê‚S–‡‚ß‚Ì•`‰æ
-		// ŽOŠpŒ`‚P‚Â–Ú
-		pos[0] = Vec3(x, -y, -z);
-		pos[1] = Vec3(x, y, -z);
-		pos[2] = Vec3(x, -y, z);
-		// ŽOŠpŒ`‚Q‚Â–Ú
-		pos[3] = Vec3(x, y, -z);
-		pos[4] = Vec3(x, -y, z);
-		pos[5] = Vec3(x, y, z);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
+	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, m_matWVP.m);
+
+	// •`‰æ–½—ß
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
 }
 
 
