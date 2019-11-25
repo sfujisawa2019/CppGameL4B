@@ -76,13 +76,13 @@ bool HelloShader::init()
 	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
 
-	// LayerColorの使用例
-	LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 500, 500);
-	this->addChild(layerColor, 2);
-
 	// HelloWorldのレイヤーを作成。描画優先は1
 	Node* node = HelloWorld::create();
 	this->addChild(node, 1);
+
+	// LayerColorの使用例
+	LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 600);
+	this->addChild(layerColor, 2);
 
 	Sprite* spriteA = Sprite::create("HelloWorld.png");
 	//Sprite* spriteB;

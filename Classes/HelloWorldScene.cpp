@@ -138,7 +138,17 @@ bool HelloWorld::init()
     return true;
 }
 
+// LayerColorの構造を真似て、
+// drawとonDrawに分離する
 void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
+{
+	// 「onDrawを呼び出す」というカスタムコマンドを予約
+	_customCommand.init(_globalZOrder, transform, flags);
+	_customCommand.func = CC_CALLBACK_0(HelloWorld::onDraw, this, transform, flags);
+	renderer->addCommand(&_customCommand);
+}
+
+void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
 {
 	counter++;
 
@@ -154,7 +164,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	const float x = 50.0f;
 	const float y = 50.0f;
 	const float z = 50.0f;
-	
+
 	//color[0] = Vec3(0, 0, 0); // 黒
 	//color[1] = Vec3(1, 0, 0); // 赤
 	//color[2] = Vec3(0, 1, 0); // 緑
@@ -193,7 +203,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	matProjection = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
 	matView = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 
-	Mat4::createTranslation(Vec3(1280/2.0f, 720/2.0f, 0.0f), &matTrans);
+	Mat4::createTranslation(Vec3(1280 / 2.0f, 720 / 2.0f, 0.0f), &matTrans);
 
 	//CC_DEGREES_TO_RADIANS(30.0f)
 	Mat4::createRotationZ(0, &matRotZ); // ロール
@@ -212,36 +222,36 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	{ // 平面１枚めの描画
 		// 三角形１つ目
 		pos[0] = Vec3(-x, -y, z);
-		pos[1] = Vec3(-x, y,  z);
-		pos[2] = Vec3(x, -y,  z);
+		pos[1] = Vec3(-x, y, z);
+		pos[2] = Vec3(x, -y, z);
 		// 三角形２つ目
 		pos[3] = Vec3(-x, y, z);
 		pos[4] = Vec3(x, -y, z);
-		pos[5] = Vec3(x, y,  z);
+		pos[5] = Vec3(x, y, z);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
 	{ // 平面２枚めの描画
 		// 三角形１つ目
 		pos[0] = Vec3(-x, -y, -z);
-		pos[1] = Vec3(-x, y,  -z);
-		pos[2] = Vec3(x, -y,  -z);
+		pos[1] = Vec3(-x, y, -z);
+		pos[2] = Vec3(x, -y, -z);
 		// 三角形２つ目
 		pos[3] = Vec3(-x, y, -z);
 		pos[4] = Vec3(x, -y, -z);
-		pos[5] = Vec3(x, y,  -z);
+		pos[5] = Vec3(x, y, -z);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
 	{ // 平面３枚めの描画
 		// 三角形１つ目
 		pos[0] = Vec3(-x, -y, -z);
-		pos[1] = Vec3(-x,  y, -z);
-		pos[2] = Vec3(-x, -y,  z);
+		pos[1] = Vec3(-x, y, -z);
+		pos[2] = Vec3(-x, -y, z);
 		// 三角形２つ目
-		pos[3] = Vec3(-x,  y, -z);
-		pos[4] = Vec3(-x, -y,  z);
-		pos[5] = Vec3(-x,  y,  z);
+		pos[3] = Vec3(-x, y, -z);
+		pos[4] = Vec3(-x, -y, z);
+		pos[5] = Vec3(-x, y, z);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
@@ -271,3 +281,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 
 }
+

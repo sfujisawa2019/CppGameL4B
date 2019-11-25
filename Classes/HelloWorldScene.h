@@ -41,6 +41,7 @@ public:
     CREATE_FUNC(HelloWorld);
 	// ŠÖ”éŒ¾
 	void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t flags);
+	void onDraw(const cocos2d::Mat4& transform, uint32_t /*flags*/);
 	// •Ï”éŒ¾
 	cocos2d::GLProgram* m_pProgram;
 	int uniform_sampler;
@@ -49,6 +50,7 @@ public:
 
 	int counter;
 
+	// LayerColor‚Ì\‘¢‚ğƒpƒN‚é
 	cocos2d::CustomCommand _customCommand;
 };
 
