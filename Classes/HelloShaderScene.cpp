@@ -81,6 +81,10 @@ bool HelloShader::init()
 	node->setPosition(Vec2(300, 300));
 	node->setRotation(45);
 	//node->setScale(5.0f);
+	//node->setVisible(false);
+	node->setColor(Color3B(255, 255, 0));
+	node->setOpacity(128);
+	node->setContentSize(Size(500, 500));
 	this->addChild(node, 1);
 
 	// ShaderNode‚ÉƒAƒNƒVƒ‡ƒ“‚ğ‚©‚¯‚é

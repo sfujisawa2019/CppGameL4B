@@ -78,19 +78,17 @@ void ShaderNode::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	_customCommand.func = CC_CALLBACK_0(ShaderNode::onDraw, this, transform, flags);
 	renderer->addCommand(&_customCommand);
 
-	const float x = 50.0f;
-	const float y = 50.0f;
-	const float z = 50.0f;
+	Size size = getContentSize();
 
-	m_pos[0] = Vec3(-x, -y, 0);
-	m_pos[1] = Vec3(-x, y, 0);
-	m_pos[2] = Vec3(x, -y, 0);
-	m_pos[3] = Vec3(x, y, 0);
+	m_pos[0] = Vec3(-size.width / 2.0f, -size.height / 2.0f, 0);
+	m_pos[1] = Vec3(-size.width / 2.0f,  size.height / 2.0f, 0);
+	m_pos[2] = Vec3( size.width / 2.0f, -size.height / 2.0f, 0);
+	m_pos[3] = Vec3( size.width / 2.0f,  size.height / 2.0f, 0);
 
-	m_color[0] = Vec4(1, 0, 0, 1);
-	m_color[1] = Vec4(1, 0, 0, 1);
-	m_color[2] = Vec4(1, 0, 0, 1);
-	m_color[3] = Vec4(1, 0, 0, 1);
+	m_color[0] = Vec4(_realColor.r / 255.0f, _realColor.g / 255.0f, _realColor.b / 255.0f, _realOpacity / 255.0f);
+	m_color[1] = Vec4(_realColor.r / 255.0f, _realColor.g / 255.0f, _realColor.b / 255.0f, _realOpacity / 255.0f);
+	m_color[2] = Vec4(_realColor.r / 255.0f, _realColor.g / 255.0f, _realColor.b / 255.0f, _realOpacity / 255.0f);
+	m_color[3] = Vec4(_realColor.r / 255.0f, _realColor.g / 255.0f, _realColor.b / 255.0f, _realOpacity / 255.0f);
 
 	m_uv[0] = Vec2(0, 1);
 	m_uv[1] = Vec2(0, 0);
@@ -106,6 +104,8 @@ void ShaderNode::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 
 void ShaderNode::onDraw(const Mat4& transform, uint32_t /*flags*/)
 {
+	GL::blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR|GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 
