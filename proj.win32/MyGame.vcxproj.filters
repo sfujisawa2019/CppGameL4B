@@ -51,5 +51,11 @@
     <None Include="..\Resources\shaders\shader_0tex.vsh">
       <Filter>src</Filter>
     </None>
+    <None Include="..\Resources\shaders\flower.fsh">
+      <Filter>src</Filter>
+    </None>
+    <None Include="..\Resources\shaders\flower.vsh">
+      <Filter>src</Filter>
+    </None>
   </ItemGroup>
 </Project>

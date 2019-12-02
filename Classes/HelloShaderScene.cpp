@@ -79,17 +79,17 @@ bool HelloShader::init()
 	// ShaderNodeを作成。描画優先は1
 	node = ShaderNode::create();
 	node->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	node->setRotation(45);
+	//node->setRotation(45);
 	//node->setScale(5.0f);
 	//node->setVisible(false);
-	node->setColor(Color3B(255, 255, 0));
-	node->setOpacity(128);
-	node->setContentSize(Size(500, 500));
+	//node->setColor(Color3B(255, 255, 0));
+	//node->setOpacity(128);
+	node->setContentSize(Size(1280, 100));
 	this->addChild(node, 1);
 
-	// ShaderNodeにアクションをかける
-	RotateBy* action = RotateBy::create(10, 360 * 10);
-	node->runAction(action);
+	//// ShaderNodeにアクションをかける
+	//RotateBy* action = RotateBy::create(10, 360 * 10);
+	//node->runAction(action);
 
 	//// LayerColorの使用例
 	//LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 600);
