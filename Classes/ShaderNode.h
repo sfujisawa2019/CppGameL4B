@@ -41,6 +41,7 @@ public:
 	cocos2d::GLProgram* m_pProgram;
 	int uniform_sampler;
 	int uniform_wvp_matrix;
+	int uniform_center;
 	cocos2d::Texture2D* m_pTexture;
 
 	int counter;
