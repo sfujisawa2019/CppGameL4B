@@ -18,4 +18,10 @@ public:
 	CREATE_FUNC(HelloShader);
 
 	cocos2d::CustomCommand _customCommand;
+
+	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+	void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* unused_event);
+
+	cocos2d::Node* node;
 };

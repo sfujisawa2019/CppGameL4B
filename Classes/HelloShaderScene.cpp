@@ -77,8 +77,8 @@ bool HelloShader::init()
 	this->addChild(sprite, 0);
 
 	// ShaderNode‚ðì¬B•`‰æ—Dæ‚Í1
-	Node* node = ShaderNode::create();
-	node->setPosition(Vec2(300, 300));
+	node = ShaderNode::create();
+	node->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	node->setRotation(45);
 	//node->setScale(5.0f);
 	//node->setVisible(false);
@@ -104,6 +104,12 @@ bool HelloShader::init()
 	//scene->addChild(spriteB, 0);
 	//scene->addChild(spriteC, 1);
 
+	EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(HelloShader::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(HelloShader::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(HelloShader::onTouchEnded, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
 
@@ -114,4 +120,18 @@ void HelloShader::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+bool HelloShader::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_event)
+{
+	return true;
+}
+
+void HelloShader::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * unused_event)
+{
+	node->setPosition(touch->getLocation());
+}
+
+void HelloShader::onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * unused_event)
+{
 }
