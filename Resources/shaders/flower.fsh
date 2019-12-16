@@ -10,16 +10,27 @@ void main(){
 	vec2 p = gl_FragCoord.xy - center;
 	// 描画ピクセルの座標と図形の中心点の距離を計算(0～250)
 	float len = length(p);
-	float col;
+	float col = 1.0;
+	float alpha = 1.0;
 	//(0.0～1.0)に変換　長さを、長さの最大値で割る
-	col = len / size_div2.x;
+	//col = len / size_div2.x;
 
 	// 数値の範囲を(-1.0～+1.0)に変換
 	//col = p.y / size_div2.y;
 	// マイナスをプラスに変換(1.0～0.0～1.0)
 	//col = abs(col);
 	// 白黒反転(0.0～1.0～0.0)
-	col = 1.0 - col;
+	//col = 1.0 - col;
+	// 0より大きいものは全て1にする
+	//col = sign(col);
+	// X軸からの角度をラジアンで求める(-π～+π)
+	float angle = atan(p.y, p.x);
+	// 角度を度数法に変換する(-180～+180)
+	float deg = degrees(angle);
+	// マイナスをプラスに変換(180～180)
+	deg = abs(deg);
+	// 30度以上なら1　未満なら0
+	alpha = step(30, deg);
 
-	gl_FragColor = vec4(col,col,col ,1);
+	gl_FragColor = vec4(col,col,col,alpha);
 }
