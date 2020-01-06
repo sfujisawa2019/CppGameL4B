@@ -65,7 +65,7 @@ bool ShaderNode::init()
 	uniform_size_div2 = glGetUniformLocation(m_pProgram->getProgram(), "size_div2");
 	uniform_time = glGetUniformLocation(m_pProgram->getProgram(), "time");
 
-	Director::getInstance()->setClearColor(Color4F(0, 1, 0, 0));
+	//Director::getInstance()->setClearColor(Color4F(0, 1, 0, 0));
 
 	counter = 0;
 

@@ -56,25 +56,25 @@ bool HelloShader::init()
 	// add a label shows "Hello World"
 	// create and initialize a label
 
-	auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+	//auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
 
-	// position the label on the center of the screen
-	label->setPosition(Vec2(origin.x + visibleSize.width / 2,
-		origin.y + visibleSize.height - label->getContentSize().height));
+	//// position the label on the center of the screen
+	//label->setPosition(Vec2(origin.x + visibleSize.width / 2,
+	//	origin.y + visibleSize.height - label->getContentSize().height));
 
-	// add the label as a child to this layer
-	this->addChild(label, 1);
+	//// add the label as a child to this layer
+	//this->addChild(label, 1);
 
 	Sprite* sprite;
 
-	Director::getInstance()->setClearColor(Color4F(0.0f, 1.0f, 0.0f, 0.0f));
+	Director::getInstance()->setClearColor(Color4F(0.0f, 0.0f, 0.0f, 0.0f));
 
 	// Cocos‚ÌƒƒSƒXƒvƒ‰ƒCƒg‚ðì¬B•`‰æ—Dæ‚Í0
-	sprite = Sprite::create("HelloWorld.png");
-	sprite->setColor(Color3B(0xff, 0x00, 0x00));
-	sprite->setScale(2.0f);
-	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
-	this->addChild(sprite, 0);
+	//sprite = Sprite::create("HelloWorld.png");
+	//sprite->setColor(Color3B(0xff, 0x00, 0x00));
+	//sprite->setScale(2.0f);
+	//sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
+	//this->addChild(sprite, 0);
 
 	// ShaderNode‚ðì¬B•`‰æ—Dæ‚Í1
 	node = ShaderNode::create();
@@ -95,7 +95,7 @@ bool HelloShader::init()
 	//LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 600);
 	//this->addChild(layerColor, 2);
 
-	Sprite* spriteA = Sprite::create("ShaderNode.png");
+	//Sprite* spriteA = Sprite::create("ShaderNode.png");
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
