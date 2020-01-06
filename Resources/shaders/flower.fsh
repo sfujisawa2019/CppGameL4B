@@ -13,14 +13,24 @@ void main(){
 	// (-1`+1)
 	p /= size_div2;
 
+	// ’†S‚©‚ç‚Ì‹——£(0`1)
+	float len = length(p);
+
 	float col = 1.0;
 
 	float angle = atan(p.y, p.x);
 
 	// Œo‰ßŠÔ‚ÅF‚ğŒˆ‚ß‚é(-1`+1)
-	float w = sin(sin(time*3.14) - angle);
+	//float w = sin(sin(time*3.14)+3.14/2);
+	float w = cos(sin(time*3.14));
 	//(0`1)
-	col = w / 2.0 + 0.5;
+	w = w / 2.0 + 0.5;
+
+	col = len;
+	// F”½“]
+	col = 1 - col;
+	// sin‚É‚æ‚é•Ï“®‚ğ‚©‚¯‚é
+	col *= w;
 
 	gl_FragColor = vec4(col,col,col,1);
 }
