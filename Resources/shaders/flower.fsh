@@ -7,30 +7,37 @@ uniform vec2 size_div2;
 // （入力）経過秒数
 uniform float time;
 
+float u(float x) 
+{
+	return (x > 0.0) ? 1.0 : 0.0;
+}
+
 void main(){
 	// 描画ピクセルの座標と図形の中心点の座標を差を計算(-250～+250)
 	vec2 p = gl_FragCoord.xy - center;
 	// (-1～+1)
 	p /= size_div2;
 
+	// 中心からの角度
+	float a = atan(p.y, p.x);
+
 	// 中心からの距離(0～1)
-	float len = length(p);
+	float r = length(p);
 
-	float col = 1.0;
+	float w = cos(time*3.14 - r * 2.0);
+	
+	float h = 0.5 + 0.5 * cos(12.0*a - w*7.0 + r*8.0);
 
-	float angle = atan(p.y, p.x);
+	float d = 0.25 + 0.75 * pow(h,1.0*r)*(0.7+0.3*w);
 
-	// 経過時間で色を決める(-1～+1)
-	//float w = sin(sin(time*3.14)+3.14/2);
-	float w = cos(sin(time*3.14));
-	//(0～1)
-	w = w / 2.0 + 0.5;
+	float col = u(d-r) * sqrt(1.0-r/d)*r*2.5;
 
-	col = len;
-	// 色反転
-	col = 1 - col;
-	// sinによる変動をかける
-	col *= w;
+	col *= 1.25+0.25*cos((12.0*a-w*7.0+r*8.0)/2.0);
+	col *= 1.0 - 0.35*(0.5+0.5*sin(r*30))*(0.5+0.5*cos(12.0*a-w*7.0+r*8.0));
 
-	gl_FragColor = vec4(col,col,col,1);
+	gl_FragColor = vec4(
+	col,
+	col-h*0.5+r*0.2+0.35*h*(1.0-r),
+	col-h*r + 0.1*h*(1.0-r),
+	1.0);
 }
