@@ -115,17 +115,19 @@ void ShaderNode::onDraw(const Mat4& transform, uint32_t /*flags*/)
 	GL::blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//GL::blendFunc(GL_ONE, GL_ONE);
 
-	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR|GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
-	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
+	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 
 	m_pProgram->use();
 
+	// 頂点ごとのデータを転送
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, m_pos);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, m_color);
-	//glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, m_uv);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, m_uv);
 
-	//glUniform1i(uniform_sampler, 0);
-	//GL::bindTexture2D(m_pTexture->getName());
+	// テクスチャデータを転送
+	glUniform1i(uniform_sampler, 0);
+	GL::bindTexture2D(m_pTexture->getName());
 
 	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, m_matWVP.m);
 	Vec2 center = this->getPosition();

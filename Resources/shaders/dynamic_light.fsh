@@ -1,4 +1,5 @@
 varying vec4 v_color; // （入力）色
+varying vec2 v_texCoord;
 
 // （入力）図形の中心座標
 uniform vec2 center;
@@ -6,6 +7,8 @@ uniform vec2 center;
 uniform vec2 size_div2;
 // （入力）経過秒数
 uniform float time;
+
+uniform sampler2D sampler;
 
 float u(float x) 
 {
@@ -40,4 +43,7 @@ void main(){
 	col-h*0.5+r*0.2+0.35*h*(1.0-r),
 	col-h*r + 0.1*h*(1.0-r),
 	1.0);
+
+	vec4 texcolor = texture2D(sampler, v_texCoord);
+	gl_FragColor = texcolor * v_color;
 }
