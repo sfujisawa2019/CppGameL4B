@@ -93,6 +93,12 @@ bool HelloShader::init()
 
 	m_pSprite3D->setScale(10.0f);
 	m_pSprite3D->setRotation3D(Vec3(0, 180, 0));
+	//m_pSprite3D->setRotation(50);
+
+	Animation3D* animation = Animation3D::create("orc/orc.c3t");
+	Animate3D* animate = Animate3D::create(animation);
+	RepeatForever* repeat = RepeatForever::create(animate);
+	m_pSprite3D->runAction(repeat);
 
 	//// ShaderNodeにアクションをかける
 	//RotateBy* action = RotateBy::create(10, 360 * 10);
@@ -122,7 +128,16 @@ bool HelloShader::init()
 
 void HelloShader::menuCloseCallback(Ref* pSender)
 {
-	Director::getInstance()->end();
+	// 現在のアクションを停止する
+	m_pSprite3D->stopAllActions();
+
+	// アニメーションを開始
+	Animation3D* animation = Animation3D::create("orc/orc_jump.c3t");
+	Animate3D* animate = Animate3D::create(animation);
+	//RepeatForever* repeat = RepeatForever::create(animate);
+	m_pSprite3D->runAction(animate);
+
+	//Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
@@ -131,6 +146,8 @@ void HelloShader::menuCloseCallback(Ref* pSender)
 
 bool HelloShader::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_event)
 {
+	m_pSprite3D->setPosition(touch->getLocation());
+
 	return true;
 }
 
