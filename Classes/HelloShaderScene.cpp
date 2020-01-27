@@ -77,15 +77,22 @@ bool HelloShader::init()
 	//this->addChild(sprite, 0);
 
 	// ShaderNode‚ðì¬B•`‰æ—Dæ‚Í1
-	node = ShaderNode::create();
-	node->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	//node = ShaderNode::create();
+	//node->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	//node->setRotation(45);
 	//node->setScale(5.0f);
 	//node->setVisible(false);
 	//node->setColor(Color3B(255, 255, 0));
 	//node->setOpacity(128);
-	node->setContentSize(Size(500, 500));
-	this->addChild(node, 1);
+	//node->setContentSize(Size(500, 500));
+	//this->addChild(node, 1);
+
+	m_pSprite3D = Sprite3D::create("orc/orc.c3t");
+	m_pSprite3D->setPosition(640, 360);
+	this->addChild(m_pSprite3D);
+
+	m_pSprite3D->setScale(10.0f);
+	m_pSprite3D->setRotation3D(Vec3(0, 180, 0));
 
 	//// ShaderNode‚ÉƒAƒNƒVƒ‡ƒ“‚ð‚©‚¯‚é
 	//RotateBy* action = RotateBy::create(10, 360 * 10);
@@ -129,7 +136,7 @@ bool HelloShader::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * unused_e
 
 void HelloShader::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * unused_event)
 {
-	node->setPosition(touch->getLocation());
+	//node->setPosition(touch->getLocation());
 }
 
 void HelloShader::onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * unused_event)

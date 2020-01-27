@@ -24,4 +24,5 @@ public:
 	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* unused_event);
 
 	cocos2d::Node* node;
+	cocos2d::Sprite3D* m_pSprite3D;
 };
