@@ -41,7 +41,11 @@ void main(){
 	// 加工の為、UV座標をコピー
 	vec2 texCoord = v_texCoord;
 	// UV座標をいじる
-	texCoord.y += sin(gl_FragCoord.x * 50) * 0.005;
+	// 引数で、X座標の影響度合い
+	// 最後の掛け算で、V座標のずれぐあいを調整
+	//texCoord.y += sin(time * 3.14 * 4 + gl_FragCoord.x * 0.1) * 0.05;
+	texCoord.y += d * 0.1;
+	
 	// いじったUV座標でテクスチャマッピング
 	vec4 texcolor = texture2D(sampler, texCoord);
 	gl_FragColor = texcolor * v_color;
