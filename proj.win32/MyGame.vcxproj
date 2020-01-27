@@ -208,6 +208,7 @@ xcopy /Y /Q "$(ProjectDir)..\cocos2d\external\uv\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\shaders\dynamic_light.fsh" />
     <None Include="..\Resources\shaders\flower.fsh" />
     <None Include="..\Resources\shaders\shader_0tex.fsh" />
   </ItemGroup>
@@ -218,6 +219,11 @@ xcopy /Y /Q "$(ProjectDir)..\cocos2d\external\uv\prebuilt\win32\*.*" "$(OutDir)"
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\shaders\flower.vsh">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\shaders\dynamic_light.vsh">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
