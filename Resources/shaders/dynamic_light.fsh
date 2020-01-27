@@ -38,12 +38,17 @@ void main(){
 	col *= 1.25+0.25*cos((12.0*a-w*7.0+r*8.0)/2.0);
 	col *= 1.0 - 0.35*(0.5+0.5*sin(r*30))*(0.5+0.5*cos(12.0*a-w*7.0+r*8.0));
 
-	gl_FragColor = vec4(
-	col,
-	col-h*0.5+r*0.2+0.35*h*(1.0-r),
-	col-h*r + 0.1*h*(1.0-r),
-	1.0);
-
-	vec4 texcolor = texture2D(sampler, v_texCoord);
+	// 加工の為、UV座標をコピー
+	vec2 texCoord = v_texCoord;
+	// UV座標をいじる
+	texCoord.y += sin(gl_FragCoord.x * 50) * 0.005;
+	// いじったUV座標でテクスチャマッピング
+	vec4 texcolor = texture2D(sampler, texCoord);
 	gl_FragColor = texcolor * v_color;
+
+	//gl_FragColor = vec4(
+	//col,
+	//col-h*0.5+r*0.2+0.35*h*(1.0-r),
+	//col-h*r + 0.1*h*(1.0-r),
+	//1.0) * texcolor;
 }
